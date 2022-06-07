@@ -54,9 +54,9 @@ int main(void) {
 	Mat gol_image = dith_image;
 	int nbrs{};
 	bool live{};
+	std::string fileName{};
 
-
-
+	for (int i = 0; i < 48; i++) {
 		for (int y = 1; y < prev_image.rows - 1; y++) {
 			for (int x = 1; x < prev_image.cols - 1; x++) {
 				nbrs = 0;
@@ -67,16 +67,16 @@ int main(void) {
 				if ((int)prev_image.at<uchar>(y - 1, x - 1) < 128) {
 					nbrs++;
 				}
-				if ((int)prev_image.at<uchar>(y - 1, x    ) < 128) {
+				if ((int)prev_image.at<uchar>(y - 1, x) < 128) {
 					nbrs++;
 				}
 				if ((int)prev_image.at<uchar>(y - 1, x + 1) < 128) {
 					nbrs++;
 				}
-				if ((int)prev_image.at<uchar>(y    , x - 1) < 128) {
+				if ((int)prev_image.at<uchar>(y, x - 1) < 128) {
 					nbrs++;
 				}
-				if ((int)prev_image.at<uchar>(y    , x + 1) < 128) {
+				if ((int)prev_image.at<uchar>(y, x + 1) < 128) {
 					nbrs++;
 				}
 				if ((int)prev_image.at<uchar>(y + 1, x - 1) < 128) {
@@ -99,7 +99,12 @@ int main(void) {
 				}
 			}
 		}
-		imwrite("bladeeGol1.png", gol_image);
+		fileName = "BladeeGol";
+		fileName += std::to_string(i);
+		fileName += ".png";
+		imwrite(fileName, gol_image);
+		prev_image = gol_image;
+	}
 
 	return 0;
 }
